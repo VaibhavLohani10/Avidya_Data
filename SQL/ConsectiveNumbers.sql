@@ -46,4 +46,34 @@ SELECT DISTINCT as ConsecutiveNums FROM (
 --
 --
 
-SELECT score, DENSE_RANK() OVER (ORDER BY score desc) AS 'rank' FROM Scores order by score DESC;
+SELECT score, DENSE_RANK() OVER (ORDER BY score desc) AS 'rank'
+FROM Scores order by score DESC;
+
+
+
+--
+-- Write a solution to find the employees who earn more than their managers.
+--
+-- Return the result table in any order.
+--
+-- The result format is in the following example.
+--
+--
+
+SELECT e.name as Employee
+from Employee e
+join Employee m on e.managerId = m.id
+where e.salary > m.salary;
+
+--
+-- Write a solution to report all the duplicate emails.
+-- Note that it's guaranteed that the email field is not NULL.
+--
+-- Return the result table in any order.
+-- The result format is in the following example.
+
+
+SELECT email as Email
+from Person
+GROUP BY email
+HAVING count(*) >1;
