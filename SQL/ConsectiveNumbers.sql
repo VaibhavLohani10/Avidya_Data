@@ -77,3 +77,34 @@ SELECT email as Email
 from Person
 GROUP BY email
 HAVING count(*) >1;
+
+
+-- Write a solution to find all customers who never order anything.
+--
+-- Return the result table in any order.
+
+Select c.name as Customers
+from Customers c
+left join Orders O ON c.id = O.customerId
+where o.customerId is null;
+
+
+--
+-- Write a solution to find employees who have the highest salary in each of the departments.
+--
+-- Return the result table in any order.
+--
+-- The result format is in the following example.
+
+WITH Max_salary AS (
+    SELECT departmentId, MAX(salary) as max_salary from Employee
+    GROUP BY departmentId
+)
+
+SELECT d.name as Department,
+e.name as Employee,
+e.salary as Salary
+FROM Employee e
+    INNER JOIN  Department d on d.id = e.departmentId
+INNER JOIN Max_salary m on e.departmentId = m.departmentId
+AND e.salary = m.max_salary
